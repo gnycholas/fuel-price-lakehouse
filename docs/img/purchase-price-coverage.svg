@@ -1,8 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="720" height="300"
      viewBox="0 0 720 300" font-family="system-ui, sans-serif">
-  <text x="56" y="16" fill="#8a8f98" font-size="13">
-    Rows carrying a purchase price, by year
-  </text>
+  <text x="56" y="16" fill="#8a8f98" font-size="13">Rows carrying a purchase price, by year</text>
   <line x1="56" y1="256.0" x2="700" y2="256.0" stroke="#8a8f98" stroke-opacity="0.18"/>
   <text x="46" y="260.0" fill="#8a8f98" font-size="12" text-anchor="end">0%</text>
   <line x1="56" y1="198.0" x2="700" y2="198.0" stroke="#8a8f98" stroke-opacity="0.18"/>

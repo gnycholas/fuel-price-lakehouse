@@ -15,6 +15,8 @@ from pyspark.sql import functions as F
 from fuel_lakehouse.config import load_config
 from fuel_lakehouse.spark import build_spark
 
+TITLE = "Rows carrying a purchase price, by year"
+
 WIDTH, HEIGHT = 720, 300
 PAD_LEFT, PAD_BOTTOM, PAD_TOP = 56, 44, 24
 BAR_GAP = 18
@@ -68,9 +70,7 @@ def render(data: list[tuple[int, float]]) -> str:
 
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{HEIGHT}"
      viewBox="0 0 {WIDTH} {HEIGHT}" font-family="system-ui, sans-serif">
-  <text x="{PAD_LEFT}" y="16" fill="{TEXT}" font-size="13">
-    Rows carrying a purchase price, by year
-  </text>
+  <text x="{PAD_LEFT}" y="16" fill="{TEXT}" font-size="13">{TITLE}</text>
   {chr(10).join("  " + line for line in grid).strip()}
   {bars(data)}
 </svg>
