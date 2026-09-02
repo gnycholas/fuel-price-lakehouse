@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 from pyspark.sql import Row, SparkSession
 from pyspark.sql import functions as F
@@ -13,6 +15,7 @@ from fuel_lakehouse.silver.quarantine import (
     ReconciliationError,
     reconcile,
     split,
+    write_rejected,
 )
 from fuel_lakehouse.sources.anp import SourceFile
 
@@ -25,7 +28,7 @@ def bronze(spark: SparkSession, *overrides: dict[str, str]):
 
 
 def test_good_rows_go_to_accepted(spark: SparkSession) -> None:
-    result = split(evaluate(bronze(spark, {}, {})))
+    result = split(evaluate(bronze(spark, {}, {"produto": "ETANOL"})))
     assert result.accepted.count() == 2
     assert result.rejected.count() == 0
 
@@ -71,7 +74,7 @@ def test_reconciliation_balances(spark: SparkSession) -> None:
 def test_reconciliation_catches_a_silent_drop(spark: SparkSession) -> None:
     """The test that makes the safety net worth having: break the split on
     purpose and check the count notices."""
-    source = bronze(spark, {}, {}, {"valor_de_venda": "ABC"})
+    source = bronze(spark, {}, {"produto": "ETANOL"}, {"valor_de_venda": "ABC"})
     broken = split(evaluate(source))
     sabotaged = broken.__class__(
         accepted=broken.accepted.limit(1),
@@ -83,7 +86,7 @@ def test_reconciliation_catches_a_silent_drop(spark: SparkSession) -> None:
 
 
 def test_reconciliation_message_names_the_numbers(spark: SparkSession) -> None:
-    source = bronze(spark, {}, {})
+    source = bronze(spark, {}, {"produto": "ETANOL"})
     empty = split(evaluate(source))
     sabotaged = empty.__class__(
         accepted=empty.accepted.filter(F.lit(False)), rejected=empty.rejected
@@ -98,3 +101,33 @@ def test_no_column_is_lost_on_the_rejected_side(spark: SparkSession) -> None:
     rejected = split(evaluate(bronze(spark, {"produto": "XPTO"}))).rejected
     assert set(EXPECTED_COLUMNS) <= set(rejected.columns)
     assert set(LINEAGE_COLUMNS) <= set(rejected.columns)
+
+
+def test_rewriting_a_window_does_not_pile_up_quarantined_rows(
+    spark: SparkSession, tmp_path: Path
+) -> None:
+    """Appending looks harmless until a window is reprocessed twice."""
+    table = str(tmp_path / "rejected")
+    rejected = split(evaluate(bronze(spark, {"produto": "XPTO"}, {"produto": "XPTO2"}))).rejected
+
+    write_rejected(rejected, table, None)
+    first = spark.read.format("delta").load(table).count()
+    write_rejected(rejected, table, None)
+
+    assert spark.read.format("delta").load(table).count() == first == 2
+
+
+def test_a_scoped_rewrite_leaves_other_windows_alone(spark: SparkSession, tmp_path: Path) -> None:
+    table = str(tmp_path / "rejected")
+    write_rejected(split(evaluate(bronze(spark, {"produto": "XPTO"}))).rejected, table, None)
+
+    other = SourceFile("dsas", "ca", 2004, "01", None, "csv", "https://x/ca-2004-01.csv")
+    rows = [Row(**{c: {**GOOD, "produto": "NOPE"}[c] for c in EXPECTED_COLUMNS})]
+    older = add_lineage(spark.createDataFrame(rows), other, run_id="r2")
+    write_rejected(
+        split(evaluate(older)).rejected, table, "_source_series = 'dsas' AND _source_year IN (2004)"
+    )
+
+    stored = spark.read.format("delta").load(table)
+    assert stored.count() == 2
+    assert {r["_source_series"] for r in stored.collect()} == {"dsan", "dsas"}

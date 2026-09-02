@@ -22,7 +22,7 @@ from fuel_lakehouse.gold.coverage import coverage, margin
 from fuel_lakehouse.gold.price import build as price_gold
 from fuel_lakehouse.silver.build import merge, prepare
 from fuel_lakehouse.silver.contract import evaluate
-from fuel_lakehouse.silver.quarantine import reconcile, split
+from fuel_lakehouse.silver.quarantine import reconcile, split, write_rejected
 from fuel_lakehouse.sources.anp import (
     INDEX_URL,
     STATUS_MISSING_UPSTREAM,
@@ -168,6 +168,20 @@ def _bronze_window(spark: SparkSession, cfg: Config, args: argparse.Namespace) -
     return frame
 
 
+def _window_predicate(args: argparse.Namespace) -> str | None:
+    """The slice of the rejected table this run is responsible for.
+
+    None means the run covered everything, so the table is replaced whole.
+    """
+    clauses = []
+    if args.series:
+        clauses.append(f"_source_series = '{args.series}'")
+    if args.year:
+        years = ", ".join(str(int(y)) for y in args.year)
+        clauses.append(f"_source_year IN ({years})")
+    return " AND ".join(clauses) if clauses else None
+
+
 def cmd_silver(args: argparse.Namespace) -> int:
     cfg = load_config()
     spark = build_spark("silver")
@@ -204,12 +218,11 @@ def cmd_silver(args: argparse.Namespace) -> int:
         for outcome in results:
             log.info("%s", outcome)
 
-        if counts.rejected:
-            (
-                result.rejected.write.format("delta")
-                .mode("append")
-                .save(cfg.storage.table("silver", "price_observation_rejected"))
-            )
+        write_rejected(
+            result.rejected,
+            cfg.storage.table("silver", "price_observation_rejected"),
+            _window_predicate(args),
+        )
 
         # Gate before the merge: a breach must not reach the table that gold
         # reads from.

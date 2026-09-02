@@ -69,6 +69,19 @@ def split(evaluated: DataFrame, *, rejected_at: datetime | None = None) -> Split
     return Split(accepted=accepted, rejected=rejected)
 
 
+def write_rejected(rejected: DataFrame, table_path: str, scope: str | None) -> None:
+    """Replace this window's rejected rows rather than appending them.
+
+    Appending looks harmless until a window is reprocessed and every rejected
+    row is written a second time, which quietly turns the quarantine into a
+    table that overstates the damage.
+    """
+    writer = rejected.write.format("delta").mode("overwrite").option("mergeSchema", "true")
+    if scope:
+        writer = writer.option("replaceWhere", scope)
+    writer.partitionBy("_source_series", "_source_year").save(table_path)
+
+
 def reconcile(source: int, split_result: Split) -> Reconciliation:
     """Every source row is either in one side or the other.
 
