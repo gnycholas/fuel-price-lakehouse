@@ -126,3 +126,27 @@ def test_other_file_is_left_alone(raw, tmp_path: Path) -> None:
         "precos-glp-03.csv",
         "precos-glp-04.csv",
     }
+
+
+LATIN1_SAMPLE = str(Path(__file__).parent / "fixtures" / "anp_sample_latin1.csv")
+
+
+def test_latin1_file_read_as_utf8_mangles_the_text(spark: SparkSession) -> None:
+    """What the wrong charset costs: it is not an error, just wrong data."""
+    wrong = read_raw(spark, LATIN1_SAMPLE, encoding="UTF-8")
+    names = " ".join(r["revenda"] or "" for r in wrong.collect())
+
+    assert "�" in names or "Ó" not in names
+
+
+def test_latin1_file_read_with_its_own_charset_is_intact(spark: SparkSession) -> None:
+    right = read_raw(spark, LATIN1_SAMPLE, encoding="ISO-8859-1")
+    names = " ".join(r["revenda"] or "" for r in right.collect())
+
+    assert "�" not in names
+    assert any(c in names for c in "ÓÃÇÁÉ")
+
+
+def test_encoding_is_recorded_as_lineage(raw) -> None:
+    stamped = add_lineage(raw, SOURCE, run_id="r1", encoding="ISO-8859-1")
+    assert stamped.first()["_source_encoding"] == "ISO-8859-1"

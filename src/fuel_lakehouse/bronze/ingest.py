@@ -40,6 +40,7 @@ LINEAGE_COLUMNS = (
     "_source_file",
     "_source_series",
     "_source_year",
+    "_source_encoding",
     "_header_signature",
     "_ingested_at",
     "_ingestion_run_id",
@@ -64,12 +65,12 @@ def header_signature(columns: list[str]) -> str:
     return hashlib.sha256("|".join(columns).encode()).hexdigest()[:12]
 
 
-def read_raw(spark: SparkSession, path: str) -> DataFrame:
+def read_raw(spark: SparkSession, path: str, *, encoding: str = "UTF-8") -> DataFrame:
     frame = (
         spark.read.option("header", "true")
         .option("sep", ";")
         .option("quote", '"')
-        .option("encoding", "UTF-8")
+        .option("encoding", encoding)
         # 966 rows of the 2004 file have a semicolon inside a quoted field.
         # Ignore the quoting and every column after it shifts.
         .option("multiLine", "false")
@@ -91,6 +92,7 @@ def add_lineage(
     source: SourceFile,
     *,
     run_id: str,
+    encoding: str = "UTF-8",
     ingested_at: datetime | None = None,
 ) -> DataFrame:
     """Select the contracted columns and stamp where the rows came from.
@@ -105,6 +107,7 @@ def add_lineage(
         F.lit(source.filename).alias("_source_file"),
         F.lit(source.series).alias("_source_series"),
         F.lit(source.year).cast("int").alias("_source_year"),
+        F.lit(encoding).alias("_source_encoding"),
         F.lit(signature).alias("_header_signature"),
         F.lit(stamped).cast("timestamp").alias("_ingested_at"),
         F.lit(run_id).alias("_ingestion_run_id"),
@@ -130,8 +133,14 @@ def ingest_file(
     table_path: str,
     *,
     run_id: str | None = None,
+    encoding: str = "UTF-8",
 ) -> int:
-    frame = add_lineage(read_raw(spark, raw_path), source, run_id=run_id or str(uuid.uuid4()))
+    frame = add_lineage(
+        read_raw(spark, raw_path, encoding=encoding),
+        source,
+        run_id=run_id or str(uuid.uuid4()),
+        encoding=encoding,
+    )
     frame.cache()
     count = frame.count()
     write_bronze(frame, table_path, source.filename)

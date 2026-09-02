@@ -3,12 +3,15 @@
 from __future__ import annotations
 
 import argparse
+import json
 import logging
 import sys
 import uuid
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import requests
+from botocore.exceptions import ClientError
 
 from fuel_lakehouse.bronze.ingest import ingest_file
 from fuel_lakehouse.config import load_config
@@ -22,8 +25,11 @@ from fuel_lakehouse.sources.anp import (
     read_manifest,
     write_manifest,
 )
-from fuel_lakehouse.sources.download import build_s3_client, download_files
+from fuel_lakehouse.sources.download import RAW_PREFIX, build_s3_client, download_files
 from fuel_lakehouse.spark import build_spark
+
+if TYPE_CHECKING:
+    from mypy_boto3_s3.client import S3Client
 
 MANIFEST = Path("manifest/anp_files.json")
 INDEX_TIMEOUT = 90
@@ -91,6 +97,22 @@ def cmd_download(args: argparse.Namespace) -> int:
     return 1 if report.failed else 0
 
 
+def _encoding_of(s3: S3Client, bucket: str, source: SourceFile) -> str:
+    """Charset recorded when the file was downloaded.
+
+    Not every published file is UTF-8, and the difference is invisible until
+    accented names come out wrong.
+    """
+    key = f"{RAW_PREFIX}/{source.raw_key}.meta.json"
+    try:
+        meta = json.loads(s3.get_object(Bucket=bucket, Key=key)["Body"].read())
+    except (ClientError, json.JSONDecodeError):
+        log.warning("no sidecar for %s, assuming UTF-8", source.filename)
+        return "UTF-8"
+    recorded = meta.get("encoding")
+    return recorded if isinstance(recorded, str) else "UTF-8"
+
+
 def cmd_bronze(args: argparse.Namespace) -> int:
     manifest = read_manifest(args.manifest)
     selected = _select(manifest, args)
@@ -104,6 +126,7 @@ def cmd_bronze(args: argparse.Namespace) -> int:
     if len(readable) < len(selected):
         log.warning("skipping %d archive(s) for now", len(selected) - len(readable))
 
+    s3 = build_s3_client(cfg.storage)
     spark = build_spark("bronze")
     run_id = str(uuid.uuid4())
     table = cfg.storage.table("bronze", "price_observation_raw")
@@ -111,7 +134,8 @@ def cmd_bronze(args: argparse.Namespace) -> int:
     try:
         for source in readable:
             raw_path = f"{cfg.storage.bronze_raw}/{source.raw_key}"
-            rows = ingest_file(spark, source, raw_path, table, run_id=run_id)
+            encoding = _encoding_of(s3, cfg.storage.bucket_bronze, source)
+            rows = ingest_file(spark, source, raw_path, table, run_id=run_id, encoding=encoding)
             total += rows
             log.info("%s: %d rows", source.filename, rows)
     finally:

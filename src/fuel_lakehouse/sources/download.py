@@ -29,6 +29,24 @@ BACKOFF_SECONDS = 2.0
 
 Action = Literal["downloaded", "skipped", "failed"]
 
+UTF8 = "UTF-8"
+LATIN1 = "ISO-8859-1"
+
+
+def detect_encoding(payload: bytes) -> str:
+    """Which charset the file actually is.
+
+    Not a formality: one file out of the 48 sampled (ca-2021-02) is latin-1
+    while its own sibling semester is UTF-8. Read with the wrong one and every
+    accented character in the file is silently mangled, municipality names
+    included.
+    """
+    try:
+        payload.decode(UTF8)
+    except UnicodeDecodeError:
+        return LATIN1
+    return UTF8
+
 
 @dataclass(frozen=True)
 class DownloadResult:
@@ -181,6 +199,7 @@ def download_file(
                 "group": source.group,
                 "content_type": source.content_type,
                 "size": len(payload),
+                "encoding": detect_encoding(payload),
                 "sha256": digest,
                 "downloaded_at": datetime.now(UTC).isoformat(timespec="seconds"),
             },

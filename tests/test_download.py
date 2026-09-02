@@ -208,3 +208,23 @@ def test_zip_must_actually_be_a_zip(s3: FakeS3, served: dict[str, Any]) -> None:
 
 def test_a_real_csv_still_passes(s3: FakeS3, served: dict[str, Any]) -> None:
     assert dl.download_file(source(), s3, "bronze").action == "downloaded"  # type: ignore[arg-type]
+
+
+def test_encoding_is_detected_and_recorded(s3: FakeS3, served: dict[str, Any]) -> None:
+    import json
+
+    served["body"] = "Regiao;Revenda\nSE;PETRÓLEO LTDA\n".encode("latin-1")
+    dl.download_file(source(), s3, "bronze")  # type: ignore[arg-type]
+    meta = json.loads(s3.objects["_raw/dsan/all/2025/precos-glp-03.csv.meta.json"])
+
+    assert meta["encoding"] == "ISO-8859-1"
+
+
+def test_utf8_is_detected_as_utf8(s3: FakeS3, served: dict[str, Any]) -> None:
+    import json
+
+    served["body"] = "Regiao;Revenda\nSE;PETRÓLEO LTDA\n".encode()
+    dl.download_file(source(), s3, "bronze")  # type: ignore[arg-type]
+    meta = json.loads(s3.objects["_raw/dsan/all/2025/precos-glp-03.csv.meta.json"])
+
+    assert meta["encoding"] == "UTF-8"
