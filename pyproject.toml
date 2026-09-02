@@ -1,0 +1,48 @@
+[project]
+name = "fuel-price-lakehouse"
+version = "0.1.0"
+description = "Bronze/Silver/Gold pipeline over Brazil's ANP fuel price series, with data quality gates"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "pyspark==4.2.0",
+    "delta-spark==4.4.0",
+    "requests>=2.32",
+    "pyyaml>=6.0",
+    "duckdb>=1.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.8",
+    "mypy>=1.13",
+    "pytest>=8.3",
+    "types-requests",
+    "types-pyyaml",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "SIM", "RUF"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src"]
+# PySpark ships partial stubs; its dynamic Column API defeats strict inference.
+[[tool.mypy.overrides]]
+module = ["pyspark.*", "delta.*", "duckdb.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]
