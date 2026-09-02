@@ -12,9 +12,9 @@ from pyspark.sql import functions as F
 
 GRAIN = ("state", "product", "unit", "collection_week")
 
-# The bottom decile. Measured over 30,822 weekly cells: the median has 60
-# observations, p10 sits at 10, p1 at 1. Below ten stations a weekly average is
-# a handful of forecourts rather than a market.
+# Measured over 136,878 weekly cells across the series: median 89 observations,
+# p10 at 14, p1 at 1. Ten is the floor, catching the bottom 7%. Below that a
+# weekly average is a handful of forecourts rather than a market.
 LOW_SAMPLE_BELOW = 10
 
 # Exact percentiles do not pay for themselves at this volume.
