@@ -228,3 +228,35 @@ def test_utf8_is_detected_as_utf8(s3: FakeS3, served: dict[str, Any]) -> None:
     meta = json.loads(s3.objects["_raw/dsan/all/2025/precos-glp-03.csv.meta.json"])
 
     assert meta["encoding"] == "UTF-8"
+
+
+def sources(count: int) -> list[SourceFile]:
+    return [
+        SourceFile(
+            "dsan",
+            None,
+            2025,
+            f"{i:02d}",
+            "glp",
+            "csv",
+            f"https://x/arquivos/shpc/dsan/2025/precos-glp-{i:02d}.csv",
+        )
+        for i in range(1, count + 1)
+    ]
+
+
+def test_every_file_in_a_concurrent_batch_lands(s3: FakeS3, served: dict[str, Any]) -> None:
+    report = dl.download_files(sources(12), s3, "bronze", concurrency=6)  # type: ignore[arg-type]
+
+    assert len(report.downloaded) == 12
+    assert len([k for k in s3.objects if k.endswith(".csv")]) == 12
+
+
+def test_concurrency_of_one_still_works(s3: FakeS3, served: dict[str, Any]) -> None:
+    report = dl.download_files(sources(3), s3, "bronze", concurrency=1)  # type: ignore[arg-type]
+    assert len(report.downloaded) == 3
+
+
+def test_a_single_file_batch_does_not_spin_up_a_pool(s3: FakeS3, served: dict[str, Any]) -> None:
+    report = dl.download_files(sources(1), s3, "bronze", concurrency=6)  # type: ignore[arg-type]
+    assert len(report.downloaded) == 1

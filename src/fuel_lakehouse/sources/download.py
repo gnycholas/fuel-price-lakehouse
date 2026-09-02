@@ -6,6 +6,7 @@ import hashlib
 import json
 import logging
 import time
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Literal
@@ -26,6 +27,11 @@ RAW_PREFIX = "_raw"
 REQUEST_TIMEOUT = 90  # measured: the ANP server is slow but answers well inside this
 MAX_ATTEMPTS = 3
 BACKOFF_SECONDS = 2.0
+
+# Downloads are IO bound and the publisher is slow: sequentially, the 20 year
+# series takes hours of mostly waiting. Kept modest on purpose, this is a
+# government server and there is nothing to gain by hammering it.
+MAX_CONCURRENCY = 6
 
 Action = Literal["downloaded", "skipped", "failed"]
 
@@ -215,6 +221,13 @@ def download_files(
     bucket: str,
     *,
     force: bool = False,
+    concurrency: int = MAX_CONCURRENCY,
 ) -> DownloadReport:
     """Download what is missing or stale. One failure does not abandon the batch."""
-    return DownloadReport([download_file(s, s3, bucket, force=force) for s in sources])
+    if concurrency <= 1 or len(sources) < 2:
+        return DownloadReport([download_file(s, s3, bucket, force=force) for s in sources])
+
+    workers = min(concurrency, len(sources))
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        results = list(pool.map(lambda s: download_file(s, s3, bucket, force=force), sources))
+    return DownloadReport(results)

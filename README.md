@@ -33,24 +33,25 @@ no local mode branch. A smaller slice, if you would rather not pull the lot:
 ```mermaid
 flowchart TD
     A["ANP index page"] -->|discover| M["manifest/anp_files.json"]
-    M -->|download, sha256 checked| R["bronze/_raw<br/>files as published"]
-    R --> B["bronze.price_observation_raw<br/>every column a string"]
-    B -->|contract| Q["silver.price_observation_rejected<br/>whole row plus reasons"]
-    B -->|contract| S["silver.price_observation<br/>merged on the natural key"]
+    M -->|"download, digest checked"| R["bronze/_raw<br/>files as published"]
+    R --> B["bronze.price_observation_raw<br/>every column stays a string"]
+    B -->|contract| Q["silver.price_observation_rejected<br/>whole row plus its reasons"]
+    B -->|contract| GATE{"quality gate"}
+    GATE -->|"critical breach: run stops here"| X["nothing downstream is written"]
+    GATE -->|passes| S["silver.price_observation<br/>merged on the natural key"]
     S --> G1["gold.price_by_state_product_week"]
     S --> G2["gold.purchase_price_coverage"]
     S --> G3["gold.margin_by_state_week"]
-
-    GATE{{"quality gate<br/>critical breach stops here"}}
-    S --- GATE
-    GATE --- G1
 ```
+
+The gate sits before the merge rather than after it, so a breach keeps bad rows
+out of silver altogether instead of publishing them and holding gold back.
 
 Four things hold on every run, and each has a test that breaks them on purpose:
 
 - `count(bronze) == count(accepted) + count(rejected)`
 - `(reseller_cnpj, product, collection_date)` is unique in silver
-- rerunning a window changes nothing
+- rerunning a window changes nothing, content included, not just the row count
 - a critical rule breach stops the run before gold is touched
 
 ## What is awkward about this data
@@ -61,7 +62,10 @@ is a set of traps that produce wrong numbers without producing errors.
 
 ### The purchase price column stops being filled
 
-![Purchase price coverage by year](docs/img/purchase-price-coverage.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/purchase-price-coverage-dark.svg">
+  <img alt="Share of rows carrying a purchase price, by year of collection" src="docs/img/purchase-price-coverage-light.svg">
+</picture>
 
 The column is declared for the whole series and stops being filled partway
 through: 63% of rows carry a purchase price in 2004, 41% in 2012, and none at

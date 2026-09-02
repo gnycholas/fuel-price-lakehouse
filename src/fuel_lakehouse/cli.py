@@ -33,7 +33,12 @@ from fuel_lakehouse.sources.anp import (
     read_manifest,
     write_manifest,
 )
-from fuel_lakehouse.sources.download import RAW_PREFIX, build_s3_client, download_files
+from fuel_lakehouse.sources.download import (
+    MAX_CONCURRENCY,
+    RAW_PREFIX,
+    build_s3_client,
+    download_files,
+)
 from fuel_lakehouse.spark import build_spark
 
 if TYPE_CHECKING:
@@ -98,6 +103,7 @@ def cmd_download(args: argparse.Namespace) -> int:
         build_s3_client(cfg.storage),
         cfg.storage.bucket_bronze,
         force=args.force,
+        concurrency=args.concurrency or MAX_CONCURRENCY,
     )
     log.info("%s", report.summary())
     for failure in report.failed:
@@ -249,6 +255,9 @@ def build_parser() -> argparse.ArgumentParser:
     download.add_argument("--group", help="gasolina-etanol, diesel-gnv or glp")
     download.add_argument("--series", help="dsan, dsas or qus")
     download.add_argument("--force", action="store_true", help="ignore matching digests")
+    download.add_argument(
+        "--concurrency", type=int, default=None, help="parallel downloads (default 6)"
+    )
 
     bronze = sub.add_parser("bronze", help="load raw files into the bronze table")
     bronze.add_argument("--year", type=int, nargs="*", help="restrict to these years")
