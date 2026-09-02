@@ -11,11 +11,12 @@ from dataclasses import dataclass
 from pyspark.sql import Column, DataFrame
 from pyspark.sql import functions as F
 
-# Measured across the series, not assumed. DIESEL S10 and GASOLINA ADITIVADA
-# only show up in the recent files; the 2004 ones have neither.
+# Measured across the series, not assumed. Sampling only 2004 and 2025 missed
+# DIESEL S50 entirely, which cost 44,495 rows on the first full run.
 PRODUCTS = (
     "DIESEL",
     "DIESEL S10",
+    "DIESEL S50",
     "ETANOL",
     "GASOLINA",
     "GASOLINA ADITIVADA",
