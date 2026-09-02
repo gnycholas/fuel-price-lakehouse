@@ -35,6 +35,9 @@ target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "UP", "B", "SIM", "RUF"]
+# `from pyspark.sql import functions as F` is the convention everywhere
+# PySpark is written; renaming it would make the code read as unfamiliar.
+ignore = ["N812"]
 
 [tool.mypy]
 python_version = "3.12"

@@ -5,10 +5,12 @@ from __future__ import annotations
 import argparse
 import logging
 import sys
+import uuid
 from pathlib import Path
 
 import requests
 
+from fuel_lakehouse.bronze.ingest import ingest_file
 from fuel_lakehouse.config import load_config
 from fuel_lakehouse.sources.anp import (
     INDEX_URL,
@@ -21,6 +23,7 @@ from fuel_lakehouse.sources.anp import (
     write_manifest,
 )
 from fuel_lakehouse.sources.download import build_s3_client, download_files
+from fuel_lakehouse.spark import build_spark
 
 MANIFEST = Path("manifest/anp_files.json")
 INDEX_TIMEOUT = 90
@@ -90,6 +93,37 @@ def cmd_download(args: argparse.Namespace) -> int:
     return 1 if report.failed else 0
 
 
+def cmd_bronze(args: argparse.Namespace) -> int:
+    manifest = read_manifest(args.manifest)
+    selected = _select(manifest, args)
+    if not selected:
+        log.error("no file in the manifest matches the given filters")
+        return 1
+
+    cfg = load_config()
+    # A zip needs unpacking before it can be read as a table; that is a
+    # separate concern and is not in this layer yet.
+    readable = [f for f in selected if f.content_type == "csv"]
+    if len(readable) < len(selected):
+        log.warning("skipping %d archive(s) for now", len(selected) - len(readable))
+
+    spark = build_spark("bronze")
+    run_id = str(uuid.uuid4())
+    table = cfg.storage.table("bronze", "price_observation_raw")
+    total = 0
+    try:
+        for source in readable:
+            raw_path = f"{cfg.storage.bronze_raw}/{source.raw_key}"
+            rows = ingest_file(spark, source, raw_path, table, run_id=run_id)
+            total += rows
+            log.info("%s: %d rows", source.filename, rows)
+    finally:
+        spark.stop()
+
+    log.info("run %s ingested %d rows from %d file(s)", run_id, total, len(readable))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="fuel-lakehouse")
     parser.add_argument("--manifest", type=Path, default=MANIFEST)
@@ -103,13 +137,18 @@ def build_parser() -> argparse.ArgumentParser:
     download.add_argument("--series", help="dsan, dsas or qus")
     download.add_argument("--force", action="store_true", help="ignore matching digests")
 
+    bronze = sub.add_parser("bronze", help="load raw files into the bronze table")
+    bronze.add_argument("--year", type=int, nargs="*", help="restrict to these years")
+    bronze.add_argument("--group", help="gasolina-etanol, diesel-gnv or glp")
+    bronze.add_argument("--series", help="dsan, dsas or qus")
+
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
     args = build_parser().parse_args(argv)
-    handlers = {"discover": cmd_discover, "download": cmd_download}
+    handlers = {"discover": cmd_discover, "download": cmd_download, "bronze": cmd_bronze}
     return handlers[args.command](args)
 
 
