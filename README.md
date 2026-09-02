@@ -54,6 +54,11 @@ Four things hold on every run, and each has a test that breaks them on purpose:
 - rerunning a window changes nothing, content included, not just the row count
 - a critical rule breach stops the run before gold is touched
 
+The second one is there because it broke. The key is unique in every file I
+sampled while building this, and it is not unique across the whole series: one
+2005 file repeats 36 keys. The gate caught it on the first full load, before the
+merge could pick among them and leave silver quietly wrong.
+
 ## What is awkward about this data
 
 The interesting part of this dataset is not its size. The schema has been

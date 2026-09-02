@@ -29,12 +29,32 @@ a window lands on the same content instead of duplicating it, and a republished
 file updates in place.
 
 The key was measured before it was trusted: 281,531 rows gave 281,531 distinct
-keys in the 2004 file. The uniqueness rule still runs on every load, because a
-key that holds today may not hold in next year's file, and finding that out
-through a non-deterministic merge is the worst way to find out.
+keys in the 2004 file, and 51,685 gave 51,685 in a 2025 one. The uniqueness rule
+still runs on every load anyway, because a key that holds in the files you
+sampled may not hold in the ones you have not.
+
+That is not hypothetical. Loading the full series, 28 million rows instead of 5,
+the rule failed: 36 keys repeat, all of them inside a single 2005 file. Without
+the check the merge would have picked among them arbitrarily and silver would
+have been quietly wrong.
 
 The idempotency test compares content, not counts. The same number of wrong
 rows would pass a count.
+
+## Repeated keys are two different problems
+
+34 of those 36 keys repeat byte for byte. Two have the same key and different
+prices. Treating them the same way would be wrong either way round.
+
+An exact repeat is one observation published more than once, so the surplus
+copies go to quarantine as `exact_duplicate` and one is kept. A key whose rows
+disagree is a conflict in the source, and choosing a winner is exactly the
+silent decision this pipeline exists to avoid, so every row of that key goes to
+quarantine as `duplicate_key_conflict` and a person can decide.
+
+Both land in quarantine rather than being dropped, which is also what keeps
+`bronze == accepted + rejected` true. A deduplication that quietly removed rows
+would break the one count that proves nothing went missing.
 
 ## The unit of measure is part of the gold grain
 

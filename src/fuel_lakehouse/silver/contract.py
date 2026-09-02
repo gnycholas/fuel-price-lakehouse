@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from pyspark.sql import Column, DataFrame
+from pyspark.sql import Column, DataFrame, Window
 from pyspark.sql import functions as F
 
 # Measured across the series, not assumed. Sampling only 2004 and 2025 missed
@@ -126,6 +126,68 @@ def rejection_reasons() -> Column:
     )
 
 
+NATURAL_KEY = ("reseller_cnpj", "product", "collection_date")
+
+TYPED_NAMES = (
+    "region",
+    "state",
+    "municipality",
+    "reseller_name",
+    "reseller_cnpj",
+    "product",
+    "collection_date",
+    "sale_price",
+    "purchase_price",
+    "unit",
+    "brand",
+)
+
+
+def flag_duplicates(evaluated: DataFrame) -> DataFrame:
+    """Mark rows that share a natural key.
+
+    The key was measured unique on two files and is not unique across the
+    series: one 2005 file repeats 36 keys, 34 of them byte for byte and two
+    with different prices. Those are two different problems.
+
+    An exact repeat is one observation published more than once, so the extra
+    copies are dropped into quarantine and one is kept. A key whose rows
+    disagree is a conflict in the source, and picking a winner would be the
+    silent choice this pipeline exists to avoid, so every row of that key goes
+    to quarantine instead.
+    """
+    valid = F.size("_rejection_reasons") == 0
+    by_key = Window.partitionBy(*NATURAL_KEY)
+    ordered = Window.partitionBy(*NATURAL_KEY).orderBy(F.col("_row_fingerprint"))
+
+    marked = (
+        evaluated.withColumn("_row_fingerprint", F.hash(*TYPED_NAMES))
+        .withColumn("_key_rows", F.count(F.when(valid, 1)).over(by_key))
+        .withColumn(
+            "_key_variants",
+            F.size(F.collect_set(F.when(valid, F.col("_row_fingerprint"))).over(by_key)),
+        )
+        .withColumn("_key_position", F.row_number().over(ordered))
+    )
+
+    repeated = valid & (F.col("_key_rows") > 1)
+    conflict = repeated & (F.col("_key_variants") > 1)
+    surplus_copy = repeated & (F.col("_key_variants") == 1) & (F.col("_key_position") > 1)
+
+    return marked.withColumn(
+        "_rejection_reasons",
+        F.array_compact(
+            F.concat(
+                F.col("_rejection_reasons"),
+                F.array(
+                    F.when(conflict, F.lit("duplicate_key_conflict")),
+                    F.when(surplus_copy, F.lit("exact_duplicate")),
+                ),
+            )
+        ),
+    ).drop("_row_fingerprint", "_key_rows", "_key_variants", "_key_position")
+
+
 def evaluate(bronze: DataFrame) -> DataFrame:
     """Bronze rows with the typed columns and whatever the contract objects to.
 
@@ -133,8 +195,9 @@ def evaluate(bronze: DataFrame) -> DataFrame:
     values, so that is FEAT-004's job.
     """
     typed = bronze.select("*", *typed_columns())
-    return typed.select(
+    contracted = typed.select(
         "*",
         F.date_trunc("week", F.col("collection_date")).cast("date").alias("collection_week"),
         rejection_reasons(),
     )
+    return flag_duplicates(contracted)

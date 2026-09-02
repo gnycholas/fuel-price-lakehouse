@@ -112,3 +112,50 @@ def test_blank_price_is_not_reported_as_unparseable(spark: SparkSession) -> None
 
 def test_branca_is_a_brand_not_a_missing_value(spark: SparkSession) -> None:
     assert reasons(spark, bandeira="BRANCA") == []
+
+
+def many(spark: SparkSession, *overrides: dict[str, str]):
+    rows = [Row(**{c: {**GOOD, **o}[c] for c in EXPECTED_COLUMNS}) for o in overrides]
+    return evaluate(spark.createDataFrame(rows))
+
+
+def reasons_of(frame) -> list[list[str]]:
+    return [list(r["_rejection_reasons"]) for r in frame.collect()]
+
+
+def test_an_exact_repeat_keeps_one_and_quarantines_the_rest(spark: SparkSession) -> None:
+    got = reasons_of(many(spark, {}, {}, {}))
+
+    assert got.count([]) == 1
+    assert got.count(["exact_duplicate"]) == 2
+
+
+def test_a_key_whose_rows_disagree_is_quarantined_whole(spark: SparkSession) -> None:
+    """Picking a winner would be the silent choice the pipeline exists to avoid."""
+    got = reasons_of(many(spark, {}, {"valor_de_venda": "5,70"}))
+
+    assert got == [["duplicate_key_conflict"], ["duplicate_key_conflict"]]
+
+
+def test_distinct_keys_are_left_alone(spark: SparkSession) -> None:
+    got = reasons_of(many(spark, {}, {"produto": "ETANOL"}))
+    assert got == [[], []]
+
+
+def test_a_repeat_that_differs_only_in_address_is_a_conflict(spark: SparkSession) -> None:
+    got = reasons_of(many(spark, {}, {"municipio": "CAMPINAS"}))
+    assert all(r == ["duplicate_key_conflict"] for r in got)
+
+
+def test_an_already_rejected_row_does_not_create_a_false_conflict(
+    spark: SparkSession,
+) -> None:
+    got = reasons_of(many(spark, {}, {"valor_de_venda": "ABC"}))
+
+    assert [] in got
+    assert any("sale_price_not_numeric" in r for r in got)
+    assert not any("duplicate_key_conflict" in r for r in got)
+
+
+def test_nothing_is_dropped_by_the_duplicate_check(spark: SparkSession) -> None:
+    assert many(spark, {}, {}, {}, {}).count() == 4
