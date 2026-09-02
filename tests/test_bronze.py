@@ -11,6 +11,7 @@ from pathlib import Path
 
 import pytest
 from pyspark.sql import SparkSession
+from pyspark.sql import functions as F
 
 from fuel_lakehouse.bronze.ingest import (
     EXPECTED_COLUMNS,
@@ -150,3 +151,19 @@ def test_latin1_file_read_with_its_own_charset_is_intact(spark: SparkSession) ->
 def test_encoding_is_recorded_as_lineage(raw) -> None:
     stamped = add_lineage(raw, SOURCE, run_id="r1", encoding="ISO-8859-1")
     assert stamped.first()["_source_encoding"] == "ISO-8859-1"
+
+
+def test_a_new_lineage_column_does_not_break_an_existing_table(raw, tmp_path: Path) -> None:
+    """Bronze has to accept its own schema growing, or the day a lineage
+    column is added the whole table has to be rebuilt."""
+    table = str(tmp_path / "bronze")
+    write_bronze(add_lineage(raw, SOURCE, run_id="r1"), table, SOURCE.filename)
+
+    widened = add_lineage(raw, SOURCE, run_id="r2").withColumn(
+        "_source_note", F.lit("something new")
+    )
+    write_bronze(widened, table, SOURCE.filename)
+
+    stored = raw.sparkSession.read.format("delta").load(table)
+    assert "_source_note" in stored.columns
+    assert stored.count() == raw.count()

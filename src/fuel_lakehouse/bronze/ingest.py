@@ -121,6 +121,10 @@ def write_bronze(frame: DataFrame, table_path: str, source_file: str) -> None:
         frame.write.format("delta")
         .mode("overwrite")
         .option("replaceWhere", f"_source_file = '{escaped}'")
+        # Lineage columns get added as the pipeline learns things about the
+        # source. overwriteSchema is not an option here, Delta refuses it
+        # alongside replaceWhere.
+        .option("mergeSchema", "true")
         .partitionBy("_source_series", "_source_year")
         .save(table_path)
     )
