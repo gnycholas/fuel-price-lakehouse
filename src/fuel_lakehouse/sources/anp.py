@@ -41,7 +41,7 @@ STATUS_UNKNOWN = "unknown"
 STATUS_MISSING_UPSTREAM = "missing_upstream"
 
 
-@dataclass(frozen=True, order=True)
+@dataclass(frozen=True)
 class SourceFile:
     """One file published by ANP, as discovered on the index page."""
 
@@ -53,6 +53,23 @@ class SourceFile:
     content_type: str
     url: str
     status: str = STATUS_OK
+
+    @property
+    def sort_key(self) -> tuple[str, str, int, str, str, str]:
+        """Total order that tolerates missing attributes.
+
+        Comparing the fields directly breaks as soon as one file yields no year
+        and another does, which is exactly the case the unknown status exists
+        for. Absent values sort first rather than raising.
+        """
+        return (
+            self.series,
+            self.subseries or "",
+            self.year or 0,
+            self.period or "",
+            self.group or "",
+            self.url,
+        )
 
     @property
     def filename(self) -> str:
@@ -113,10 +130,14 @@ def classify(url: str) -> SourceFile:
     return SourceFile("unknown", None, None, None, None, content_type, url, STATUS_UNKNOWN)
 
 
+def sort_files(files: list[SourceFile]) -> list[SourceFile]:
+    return sorted(files, key=lambda f: f.sort_key)
+
+
 def discover(index_html: str) -> list[SourceFile]:
     """Every data file linked from the index page, deduplicated and ordered."""
     urls = {match.group(1) for match in _FILE_LINK.finditer(index_html)}
-    return sorted(classify(url) for url in urls)
+    return sort_files([classify(url) for url in urls])
 
 
 def write_manifest(files: list[SourceFile], path: Path) -> None:
@@ -124,7 +145,7 @@ def write_manifest(files: list[SourceFile], path: Path) -> None:
     payload = {
         "source": INDEX_URL,
         "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
-        "files": [asdict(f) for f in sorted(files)],
+        "files": [asdict(f) for f in sort_files(files)],
     }
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -151,4 +172,4 @@ def merge_manifest(known: list[SourceFile], found: list[SourceFile]) -> list[Sou
         for old in known
         if old.url not in found_by_url
     )
-    return sorted(merged)
+    return sort_files(merged)

@@ -1,0 +1,117 @@
+"""Command line entry points for the ingestion side of the pipeline."""
+
+from __future__ import annotations
+
+import argparse
+import logging
+import sys
+from pathlib import Path
+
+import requests
+
+from fuel_lakehouse.config import load_config
+from fuel_lakehouse.sources.anp import (
+    INDEX_URL,
+    STATUS_MISSING_UPSTREAM,
+    STATUS_UNKNOWN,
+    SourceFile,
+    discover,
+    merge_manifest,
+    read_manifest,
+    write_manifest,
+)
+from fuel_lakehouse.sources.download import build_s3_client, download_files
+
+MANIFEST = Path("manifest/anp_files.json")
+INDEX_TIMEOUT = 90
+
+log = logging.getLogger("fuel_lakehouse")
+
+
+def cmd_discover(args: argparse.Namespace) -> int:
+    response = requests.get(INDEX_URL, timeout=INDEX_TIMEOUT)
+    response.raise_for_status()
+
+    found = discover(response.text)
+    merged = merge_manifest(read_manifest(args.manifest), found)
+    write_manifest(merged, args.manifest)
+
+    unknown = [f for f in merged if f.status == STATUS_UNKNOWN]
+    withdrawn = [f for f in merged if f.status == STATUS_MISSING_UPSTREAM]
+
+    log.info("%d files in manifest (%d found now)", len(merged), len(found))
+    if withdrawn:
+        log.warning("%d file(s) no longer published upstream", len(withdrawn))
+    if unknown:
+        # Not an error: a shape nobody anticipated is exactly what the manifest
+        # is for. It needs a human to look, not the run to stop.
+        log.warning("%d file(s) with an unrecognized name:", len(unknown))
+        for f in unknown:
+            log.warning("  %s", f.filename)
+    return 0
+
+
+def _select(files: list[SourceFile], args: argparse.Namespace) -> list[SourceFile]:
+    selected = [f for f in files if f.status != STATUS_MISSING_UPSTREAM]
+    if args.series:
+        selected = [f for f in selected if f.series == args.series]
+    else:
+        # The rolling four-week feed overlaps the historical series and would
+        # only duplicate rows.
+        selected = [f for f in selected if f.series != "qus"]
+    if args.year:
+        selected = [f for f in selected if f.year in args.year]
+    if args.group:
+        selected = [f for f in selected if f.group == args.group]
+    return selected
+
+
+def cmd_download(args: argparse.Namespace) -> int:
+    manifest = read_manifest(args.manifest)
+    if not manifest:
+        log.error("manifest is empty; run `discover` first")
+        return 1
+
+    selected = _select(manifest, args)
+    if not selected:
+        log.error("no file in the manifest matches the given filters")
+        return 1
+
+    cfg = load_config()
+    report = download_files(
+        selected,
+        build_s3_client(cfg.storage),
+        cfg.storage.bucket_bronze,
+        force=args.force,
+    )
+    log.info("%s", report.summary())
+    for failure in report.failed:
+        log.error("  %s: %s", failure.file.filename, failure.error)
+    return 1 if report.failed else 0
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(prog="fuel-lakehouse")
+    parser.add_argument("--manifest", type=Path, default=MANIFEST)
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    sub.add_parser("discover", help="refresh the manifest from the index page")
+
+    download = sub.add_parser("download", help="fetch manifest files into the raw prefix")
+    download.add_argument("--year", type=int, nargs="*", help="restrict to these years")
+    download.add_argument("--group", help="gasolina-etanol, diesel-gnv or glp")
+    download.add_argument("--series", help="dsan, dsas or qus")
+    download.add_argument("--force", action="store_true", help="ignore matching digests")
+
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
+    args = build_parser().parse_args(argv)
+    handlers = {"discover": cmd_discover, "download": cmd_download}
+    return handlers[args.command](args)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

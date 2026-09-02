@@ -1,0 +1,2196 @@
+{
+  "source": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/serie-historica-de-precos-de-combustiveis",
+  "generated_at": "2026-09-02T01:42:32+00:00",
+  "files": [
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "01",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-diesel-gnv-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "01",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-gasolina-etanol-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "01",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-glp-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "02",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-diesel-gnv-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "02",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-gasolina-etanol-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "02",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-glp-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "03",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-diesel-gnv-03.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "03",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-gasolina-etanol-03.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "03",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-glp-03.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "04",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-diesel-gnv-04.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "04",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-gasolina-etanol-04.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "04",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-glp-04.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "05",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-diesel-gnv-05.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "05",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-gasolina-etanol-05.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "05",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-glp-05.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "06",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-diesel-gnv-06.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "06",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-gasolina-etanol-06.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "06",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-glp-06.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "07",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-diesel-gnv-07.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "07",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-gasolina-etanol-07.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "07",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-glp-07.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "08",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-diesel-gnv-08.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "08",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-gasolina-etanol-08.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "08",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-glp-08.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "09",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-diesel-gnv-09.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "09",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-gasolina-etanol-09.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "09",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-glp-09.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "10",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-diesel-gnv-10.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "10",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-gasolina-etanol-10.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "10",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-glp-10.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "11",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-diesel-gnv-11.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "11",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-gasolina-etanol-11.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "11",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-glp-11.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "12",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-diesel-gnv-12.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "12",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-gasolina-etanol-12.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2023,
+      "period": "12",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2023/precos-glp-12.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "01",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-diesel-gnv-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "01",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-gasolina-etanol-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "01",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-glp-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "02",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-diesel-gnv-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "02",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-gasolina-etanol-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "02",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-glp-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "03",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-diesel-gnv-03.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "03",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-gasolina-etanol-03.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "03",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-glp-03.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "04",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-diesel-gnv-04.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "04",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-gasolina-etanol-04.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "04",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-glp-04.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "05",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-diesel-gnv-05.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "05",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-gasolina-etanol-05.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "05",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-glp-05.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "06",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-diesel-gnv-06.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "06",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-gasolina-etanol-06.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "06",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-glp-06.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "07",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-diesel-gnv-07.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "07",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-gasolina-etanol-07.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "07",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-glp-07.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "08",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-diesel-gnv-08.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "08",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-gasolina-etanol-08.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "08",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-glp-08.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "09",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-diesel-gnv-09.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "09",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-gasolina-etanol-09.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "09",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-glp-09.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "10",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-diesel-gnv-10.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "10",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-gasolina-etanol-10.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "10",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-glp-10.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "11",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-diesel-gnv-11.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "11",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-gasolina-etanol-11.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "11",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-glp-11.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "12",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-diesel-gnv-12.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "12",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-gasolina-etanol-12.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2024,
+      "period": "12",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2024/precos-glp-12.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "01",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-diesel-gnv-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "01",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-gasolina-etanol-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "01",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-glp-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "02",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-diesel-gnv-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "02",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-gasolina-etanol-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "02",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-glp-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "03",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-diesel-gnv-03.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "03",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-gasolina-etanol-03.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "03",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-glp-03.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "04",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-diesel-gnv-04.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "04",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-gasolina-etanol-04.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "04",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-glp-04.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "05",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-diesel-gnv-05.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "05",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-gasolina-etanol-05.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "05",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-glp-05.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "06",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-diesel-gnv-06.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "06",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-gasolina-etanol-06.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "06",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-glp-06.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "07",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-diesel-gnv-07.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "07",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-gasolina-etanol-07.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "07",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-glp-07.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "08",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-diesel-gnv-08.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "08",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-gasolina-etanol-08.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "08",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-glp-08.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "09",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-diesel-gnv-09.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "09",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-gasolina-etanol-09.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "09",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-glp-09.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "10",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-diesel-gnv-10.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "10",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-gasolina-etanol-10.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "10",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-glp-10.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "11",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-diesel-gnv-11.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "11",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-gasolina-etanol-11.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "11",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-glp-11.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "12",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-diesel-gnv-12.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "12",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-gasolina-etanol-12.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2025,
+      "period": "12",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2025/precos-glp-12.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2026,
+      "period": "01",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2026/01-dados-abertos-precos-diesel-gnv.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2026,
+      "period": "01",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2026/01-dados-abertos-precos-gasolina-etanol.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2026,
+      "period": "01",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2026/01-dados-abertos-precos-glp.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2026,
+      "period": "02",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2026/02-dados-abertos-precos-diesel-gnv.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2026,
+      "period": "02",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2026/02-cados-abertos-preco-gasolina-etanol.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2026,
+      "period": "02",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2026/02-dados-abertos-precos-glp.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2026,
+      "period": "03",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2026/03-dados-abertos-precos-diesel-gnv.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2026,
+      "period": "03",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2026/03-dados-abertos-precos-gasolina-etanol.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2026,
+      "period": "03",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2026/03-dados-abertos-precos-glp.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2026,
+      "period": "05",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2026/05-dados-abertos-precos-diesel-gnv.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2026,
+      "period": "05",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2026/05-dados-abertos-precos-gasolina-etanol.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2026,
+      "period": "05",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2026/05-dados-abertos-precos-glp.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2026,
+      "period": "06",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2026/06-dados-abertos-precos-2026-06-diesel-gnv.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2026,
+      "period": "06",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2026/06-dados-abertos-precos-2026-06-gasolina-etanol.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2026,
+      "period": "06",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2026/06-dados-abertos-precos-2026-06-glp.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2026,
+      "period": "07",
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2026/07-dados-abertos-precos-diesel-gnv.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2026,
+      "period": "07",
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2026/07-dados-abertos-precos-gasolina-etanol.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsan",
+      "subseries": null,
+      "year": 2026,
+      "period": "07",
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsan/2026/07-dados-abertos-precos-glp.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": null,
+      "period": null,
+      "group": null,
+      "content_type": "zip",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/precos-semestrais-ca.zip",
+      "status": "unknown"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2004,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2004-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2004,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2004-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2005,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2005-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2005,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2005-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2006,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2006-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2006,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2006-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2007,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2007-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2007,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2007-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2008,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2008-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2008,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2008-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2009,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2009-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2009,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2009-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2010,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2010-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2010,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2010-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2011,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2011-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2011,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2011-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2012,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2012-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2012,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2012-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2013,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2013-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2013,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2013-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2014,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2014-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2014,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2014-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2015,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2015-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2015,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2015-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2016,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2016-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2016,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2016-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2017,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2017-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2017,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2017-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2018,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2018-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2018,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2018-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2019,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2019-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2019,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2019-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2020,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2020-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2020,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2020-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2021,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2021-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2021,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2021-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2022,
+      "period": "02",
+      "group": null,
+      "content_type": "zip",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2022-02.zip",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2023,
+      "period": "01",
+      "group": null,
+      "content_type": "zip",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2023-01.zip",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2023,
+      "period": "02",
+      "group": null,
+      "content_type": "zip",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2023-02.zip",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2024,
+      "period": "01",
+      "group": null,
+      "content_type": "zip",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2024-01.zip",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2024,
+      "period": "02",
+      "group": null,
+      "content_type": "zip",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2024-02.zip",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2025,
+      "period": "01",
+      "group": null,
+      "content_type": "zip",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2025-01.zip",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2025,
+      "period": "02",
+      "group": null,
+      "content_type": "zip",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2025-02.zip",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "ca",
+      "year": 2026,
+      "period": "01",
+      "group": null,
+      "content_type": "zip",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/ca/ca-2026-01.zip",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2004,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2004-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2004,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2004-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2005,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2005-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2005,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2005-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2006,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2006-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2006,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2006-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2007,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2007-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2007,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2007-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2008,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2008-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2008,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2008-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2009,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2009-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2009,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2009-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2010,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2010-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2010,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2010-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2011,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2011-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2011,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2011-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2012,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2012-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2012,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2012-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2013,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2013-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2013,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2013-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2014,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2014-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2014,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2014-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2015,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2015-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2015,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2015-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2016,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2016-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2016,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2016-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2017,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2017-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2017,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2017-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2018,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2018-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2018,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2018-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2019,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2019-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2019,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2019-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2020,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2020-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2020,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2020-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2021,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/precos-semestrais-glp2021-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2021,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2021-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2022,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/precos-semestrais-glp-2022-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2022,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2022-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2023,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2023-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2023,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2023-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2024,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2024-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2024,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2024-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2025,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2025-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2025,
+      "period": "02",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2025-02.csv",
+      "status": "ok"
+    },
+    {
+      "series": "dsas",
+      "subseries": "glp",
+      "year": 2026,
+      "period": "01",
+      "group": null,
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/dsas/glp/glp-2026-01.csv",
+      "status": "ok"
+    },
+    {
+      "series": "qus",
+      "subseries": null,
+      "year": null,
+      "period": null,
+      "group": "diesel-gnv",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/qus/ultimas-4-semanas-diesel-gnv.csv",
+      "status": "ok"
+    },
+    {
+      "series": "qus",
+      "subseries": null,
+      "year": null,
+      "period": null,
+      "group": "gasolina-etanol",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/qus/ultimas-4-semanas-gasolina-etanol.csv",
+      "status": "ok"
+    },
+    {
+      "series": "qus",
+      "subseries": null,
+      "year": null,
+      "period": null,
+      "group": "glp",
+      "content_type": "csv",
+      "url": "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/arquivos/shpc/qus/ultimas-4-semanas-glp.csv",
+      "status": "ok"
+    }
+  ]
+}

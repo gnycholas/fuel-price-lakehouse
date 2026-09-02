@@ -19,6 +19,7 @@ from fuel_lakehouse.sources.anp import (
     discover,
     merge_manifest,
     read_manifest,
+    sort_files,
     write_manifest,
 )
 
@@ -106,7 +107,7 @@ def test_raw_key_keeps_the_published_filename(files: list[SourceFile]) -> None:
 def test_manifest_round_trips(tmp_path: Path, files: list[SourceFile]) -> None:
     path = tmp_path / "anp_files.json"
     write_manifest(files, path)
-    assert read_manifest(path) == sorted(files)
+    assert read_manifest(path) == sort_files(files)
 
 
 def test_manifest_ordering_is_stable(tmp_path: Path, files: list[SourceFile]) -> None:
@@ -132,3 +133,11 @@ def test_reappearing_file_loses_the_missing_flag(files: list[SourceFile]) -> Non
     merged = merge_manifest(known=stale, found=files)
 
     assert all(f.status != STATUS_MISSING_UPSTREAM for f in merged)
+
+
+def test_sorting_tolerates_a_file_with_no_year() -> None:
+    """A shape that yields no year must not break ordering for the rest."""
+    dated = classify("https://x/arquivos/shpc/dsan/2025/precos-glp-03.csv")
+    undated = classify("https://x/arquivos/shpc/dsan/brand-new-shape.csv")
+
+    assert sort_files([dated, undated])[0] is undated

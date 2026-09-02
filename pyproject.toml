@@ -7,6 +7,7 @@ dependencies = [
     "pyspark==4.2.0",
     "delta-spark==4.4.0",
     "requests>=2.32",
+    "boto3>=1.35",
     "pyyaml>=6.0",
     "duckdb>=1.1",
 ]
@@ -17,6 +18,7 @@ dev = [
     "mypy>=1.13",
     "pytest>=8.3",
     "types-requests",
+    "boto3-stubs[s3]",
     "types-pyyaml",
 ]
 
