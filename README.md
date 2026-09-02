@@ -3,8 +3,8 @@
 [![CI](https://github.com/gnycholas/fuel-price-lakehouse/actions/workflows/ci.yml/badge.svg)](https://github.com/gnycholas/fuel-price-lakehouse/actions/workflows/ci.yml)
 
 A bronze/silver/gold pipeline over Brazil's national fuel price survey, built
-with PySpark and Delta Lake. Around 20 years of weekly price collection from
-petrol stations, roughly 5 million rows in the window loaded here.
+with PySpark and Delta Lake. Twenty years of weekly price collection from petrol
+stations across the country, 27.8 million rows.
 
 What it is really about: the quality checks stop the run instead of logging a
 warning, and rows that fail the contract go to a quarantine table rather than
@@ -129,37 +129,40 @@ the delimiter without honouring quotes and every column after it shifts, which
 reads as a postcode sitting in the product column. That is exactly the count of
 rows a naive split gets wrong, and none of them raise anything.
 
-## What the numbers looked like
-
-Over the window loaded here, 5,036,072 rows from 2004, 2012, 2021 and 2025:
+## A run over the whole series
 
 ```
-5036072 in bronze, 5036072 accepted, 0 rejected
-[ok] natural_key_unique:     0 duplicated
-[ok] one_unit_per_product:   none
-[ok] layer_reconciliation:   5036072 accounted, 5036072 in source
-[ok] rejection_rate:         0.000000, expected [0, 0.001]
-[--] purchase_price_coverage: 0.316287
+27822176 in bronze, 27822013 accepted, 163 rejected
+[ok] natural_key_unique:      0 duplicated
+[ok] one_unit_per_product:    none
+[ok] layer_reconciliation:    27822176 accounted, 27822176 in source
+[ok] rejection_rate:          0.000006, expected [0, 0.001]
+[--] purchase_price_coverage: 0.436650
 ```
 
-It did not start there. The first run against the full window rejected 53,038
-rows, 1.05% against a threshold guessed at 1%, so the gate failed. None of those
-rows were bad data. Two things were wrong with the contract:
+Gold comes out at 136,878 weekly price cells, 2,823 coverage rows and 112,125
+margin rows. Of the 163 quarantined rows, 162 are the repeated keys from that
+one 2005 file.
 
-- `DIESEL S50` was missing from the product list. Sampling only 2004 and 2025
-  skipped the era when it existed, which cost 44,495 rows.
-- `R$ / m³` was arriving as `R$ / m?`, because one file in the series is latin-1
-  and was being read as UTF-8.
+### The gate has failed twice, and was right both times
 
-Thresholds are set from what was measured rather than picked in advance, and the
-numbers behind each one sit next to it in the code. Rejection rate allows 0.1%
-against an observed 0. A weekly cell is flagged as thin below 10 observations,
-which is the bottom decile of 30,822 cells whose median is 60. A margin counts
-as reliable above 50% coverage, near the middle of the observed spread.
+**Against a five million row slice, 53,038 rows were rejected**, 1.05% against a
+threshold guessed at 1%. Not one of them was bad data. `DIESEL S50` was missing
+from the product list, because sampling 2004 and 2025 skipped the years it
+existed, and `R$ / m³` was arriving as `R$ / m?` from the one latin-1 file being
+read as UTF-8. A threshold picked in advance is how a gate ends up rejecting
+good data for a year while everyone concludes the publisher ships rubbish.
 
-Picking those in advance is how a gate ends up rejecting good data for a year
-and the conclusion becomes "the publisher ships rubbish" instead of "the
-contract is incomplete".
+**Against the full 27.8 million, the uniqueness of the natural key failed.** It
+holds in every file I sampled and does not hold across the series. That check
+existed only because a measurement on two files is not a proof, and it earned
+its place: without it the merge would have picked among the repeated rows and
+left silver quietly wrong.
+
+Thresholds come from measured distributions, with the numbers beside them in the
+code. The rejection rate allows 0.1%. A weekly cell is thin below ten
+observations, the bottom 7% of 136,878 cells whose median is 89. A margin counts
+as reliable above 50% coverage, against an observed median of 43%.
 
 ## Layout
 

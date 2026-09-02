@@ -56,6 +56,10 @@ Both land in quarantine rather than being dropped, which is also what keeps
 `bronze == accepted + rejected` true. A deduplication that quietly removed rows
 would break the one count that proves nothing went missing.
 
+The quarantine is written scoped to the window being processed, not appended.
+Appending looks harmless until a window is reprocessed and every rejected row
+lands a second time, leaving a table that overstates the damage.
+
 ## The unit of measure is part of the gold grain
 
 Prices come in three units: `R$ / litro`, `R$ / m³` for CNG, `R$ / 13 kg` for
