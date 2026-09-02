@@ -1,9 +1,4 @@
-"""Single place where a SparkSession is built.
-
-Two things here are worth reading before changing them: the JAR coordinates,
-which have to match the Hadoop version PySpark ships with, and the Java version
-check, which turns an obscure JVM crash into a sentence that says what is wrong.
-"""
+"""SparkSession construction. Mind the JAR versions before changing anything."""
 
 from __future__ import annotations
 
@@ -17,22 +12,19 @@ from pyspark.sql import SparkSession
 
 from fuel_lakehouse.config import load_config
 
-# PySpark 4.2.0 bundles hadoop-client 3.5.0. hadoop-aws must be the same
-# version or S3A fails at class load with errors that point nowhere useful.
-# Since Hadoop 3.4 the S3A connector uses AWS SDK v2, which Ivy resolves
-# transitively from this coordinate.
+# Must match the hadoop-client PySpark 4.2.0 bundles, or S3A dies at class
+# load with an error that points nowhere. Ivy pulls AWS SDK v2 from here.
 HADOOP_AWS = "org.apache.hadoop:hadoop-aws:3.5.0"
 
 # PySpark 4 supports Java 17 and 21. Newer JDKs fail at session start.
 SUPPORTED_JAVA = (17, 21)
 
-# The default of 200 shuffle partitions is meant for a cluster. On one machine
-# it produces hundreds of tiny tasks and most of the runtime is scheduling.
+# 200 is a cluster default; on one machine it is mostly scheduling overhead.
 LOCAL_SHUFFLE_PARTITIONS = "8"
 
 
 def _java_binary() -> str:
-    """The java Spark will actually launch: JAVA_HOME wins over PATH."""
+    """The java Spark will launch. JAVA_HOME wins over PATH."""
     java_home = os.environ.get("JAVA_HOME")
     if java_home:
         candidate = Path(java_home) / "bin" / "java"
@@ -65,10 +57,9 @@ def _check_java() -> None:
 
 
 def build_spark(app_name: str, *, local_storage: bool = False) -> SparkSession:
-    """Return a Delta enabled session.
+    """Delta enabled session.
 
-    With ``local_storage`` the S3A connector is left out entirely, which keeps
-    tests from downloading JARs and from needing MinIO to be running.
+    local_storage drops S3A entirely, so tests need neither the JARs nor MinIO.
     """
     _check_java()
     cfg = load_config()

@@ -15,9 +15,9 @@ FIXTURES = Path(__file__).parent / "fixtures"
 
 @pytest.fixture(scope="session")
 def spark() -> Iterator[SparkSession]:
-    """Session scoped on purpose: a JVM per test makes the suite unusable.
+    """Session scoped: a JVM per test makes the suite unusable.
 
-    Storage is local, so tests never require MinIO to be running.
+    Local storage, so no MinIO needed.
     """
     session = build_spark("tests", local_storage=True)
     yield session

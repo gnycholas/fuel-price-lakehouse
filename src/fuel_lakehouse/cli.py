@@ -1,4 +1,4 @@
-"""Command line entry points for the ingestion side of the pipeline."""
+"""Command line entry points."""
 
 from __future__ import annotations
 
@@ -46,8 +46,7 @@ def cmd_discover(args: argparse.Namespace) -> int:
     if withdrawn:
         log.warning("%d file(s) no longer published upstream", len(withdrawn))
     if unknown:
-        # Not an error: a shape nobody anticipated is exactly what the manifest
-        # is for. It needs a human to look, not the run to stop.
+        # Not an error. Needs someone to look, not the run to stop.
         log.warning("%d file(s) with an unrecognized name:", len(unknown))
         for f in unknown:
             log.warning("  %s", f.filename)
@@ -59,8 +58,7 @@ def _select(files: list[SourceFile], args: argparse.Namespace) -> list[SourceFil
     if args.series:
         selected = [f for f in selected if f.series == args.series]
     else:
-        # The rolling four-week feed overlaps the historical series and would
-        # only duplicate rows.
+        # The rolling four-week feed just duplicates the historical series.
         selected = [f for f in selected if f.series != "qus"]
     if args.year:
         selected = [f for f in selected if f.year in args.year]
@@ -101,8 +99,7 @@ def cmd_bronze(args: argparse.Namespace) -> int:
         return 1
 
     cfg = load_config()
-    # A zip needs unpacking before it can be read as a table; that is a
-    # separate concern and is not in this layer yet.
+    # Zips need unpacking first. Not handled here yet.
     readable = [f for f in selected if f.content_type == "csv"]
     if len(readable) < len(selected):
         log.warning("skipping %d archive(s) for now", len(selected) - len(readable))

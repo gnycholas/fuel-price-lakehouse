@@ -1,8 +1,7 @@
-"""Bronze ingestion, against a fixture cut from the real published files.
+"""Bronze ingestion, over a fixture cut from the real files.
 
-The fixture keeps what makes the real thing awkward: a byte order mark, CRLF
-line endings, a semicolon inside a quoted field, an empty purchase price, a
-CNPJ with a leading space, and a product priced per 13 kg rather than per litre.
+The fixture keeps the awkward parts: BOM, CRLF, a semicolon inside quotes, an
+empty purchase price, a CNPJ with a leading space.
 """
 
 from __future__ import annotations
@@ -36,7 +35,7 @@ def raw(spark: SparkSession):
     return read_raw(spark, SAMPLE)
 
 
-def test_byte_order_mark_does_not_reach_the_column_name() -> None:
+def test_bom_is_stripped_from_column_name() -> None:
     assert normalize_column("﻿Regiao - Sigla") == "regiao_sigla"
 
 
@@ -53,19 +52,17 @@ def test_every_column_is_a_string(raw) -> None:
     assert {f.dataType.simpleString() for f in raw.schema.fields} == {"string"}
 
 
-def test_quoted_semicolon_does_not_shift_the_columns(raw) -> None:
-    """The whole reason the reader honours quotes: without it this row's
-    product column would hold a postcode."""
+def test_quoted_semicolon_does_not_shift_columns(raw) -> None:
     products = {row["produto"] for row in raw.collect()}
     assert products <= {"GASOLINA", "ETANOL", "DIESEL", "GNV", "GLP", "GASOLINA ADITIVADA"}
 
 
-def test_carriage_return_does_not_stick_to_the_last_column(raw) -> None:
+def test_carriage_return_does_not_stick_to_last_column(raw) -> None:
     """The published files are CRLF. A stray \\r would ride along on the brand."""
     assert all(not row["bandeira"].endswith("\r") for row in raw.collect())
 
 
-def test_empty_purchase_price_survives_as_empty_not_as_a_dropped_row(raw) -> None:
+def test_empty_purchase_price_is_kept(raw) -> None:
     blanks = [r for r in raw.collect() if r["valor_de_compra"] in (None, "")]
     assert blanks, "the fixture contains rows with no purchase price"
 
@@ -117,7 +114,7 @@ def test_reloading_the_same_file_does_not_duplicate(raw, tmp_path: Path) -> None
     assert {r["_ingestion_run_id"] for r in second.collect()} == {"run-2"}
 
 
-def test_loading_another_file_leaves_the_first_one_alone(raw, tmp_path: Path) -> None:
+def test_other_file_is_left_alone(raw, tmp_path: Path) -> None:
     table = str(tmp_path / "bronze")
     other = SourceFile("dsan", None, 2025, "04", "glp", "csv", "https://x/precos-glp-04.csv")
 

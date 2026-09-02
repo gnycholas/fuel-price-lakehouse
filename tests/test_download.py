@@ -1,7 +1,6 @@
-"""Downloader behaviour, against an in-memory stand-in for the object store.
+"""Downloader, against an in-memory stand-in for the object store.
 
-Keeping the fake here rather than reaching for moto means the suite has no
-container and no extra dependency to run.
+A local fake instead of moto keeps the suite free of containers and extra deps.
 """
 
 from __future__ import annotations
@@ -113,8 +112,7 @@ def test_altered_object_is_replaced(s3: FakeS3, served: dict[str, Any]) -> None:
     assert s3.objects["_raw/dsan/all/2025/precos-glp-03.csv"] == CSV
 
 
-def test_existence_alone_is_not_enough_to_skip(s3: FakeS3, served: dict[str, Any]) -> None:
-    """An object with no sidecar has unknown provenance and is fetched again."""
+def test_object_without_sidecar_is_fetched_again(s3: FakeS3, served: dict[str, Any]) -> None:
     s3.objects["_raw/dsan/all/2025/precos-glp-03.csv"] = CSV
 
     assert dl.download_file(source(), s3, "bronze").action == "downloaded"  # type: ignore[arg-type]
@@ -139,7 +137,7 @@ def test_transient_failure_is_retried(s3: FakeS3, served: dict[str, Any]) -> Non
     assert served["calls"] == 3
 
 
-def test_persistent_failure_is_reported_not_raised(s3: FakeS3, served: dict[str, Any]) -> None:
+def test_persistent_failure_is_reported(s3: FakeS3, served: dict[str, Any]) -> None:
     served["fail"] = 99
 
     result = dl.download_file(source(), s3, "bronze")  # type: ignore[arg-type]
@@ -171,6 +169,42 @@ def test_zip_keeps_its_extension_in_the_key(s3: FakeS3, served: dict[str, Any]) 
     archive = SourceFile(
         "dsas", "ca", 2022, "02", None, "zip", "https://x/arquivos/shpc/dsas/ca/ca-2022-02.zip"
     )
+    served["body"] = b"PK\x03\x04rest of the archive"
     dl.download_file(archive, s3, "bronze")  # type: ignore[arg-type]
 
     assert "_raw/dsas/ca/2022/ca-2022-02.zip" in s3.objects
+
+
+def test_html_error_page_is_never_stored(s3: FakeS3, served: dict[str, Any]) -> None:
+    served["body"] = b"<!DOCTYPE html><html><body>Ops</body></html>"
+
+    result = dl.download_file(source(), s3, "bronze")  # type: ignore[arg-type]
+
+    assert result.action == "failed"
+    assert "HTML" in (result.error or "")
+    assert not s3.objects
+
+
+def test_response_without_a_delimiter_is_refused(s3: FakeS3, served: dict[str, Any]) -> None:
+    served["body"] = b"something went wrong\n"
+
+    assert dl.download_file(source(), s3, "bronze").action == "failed"  # type: ignore[arg-type]
+
+
+def test_bom_does_not_hide_an_error_page(s3: FakeS3, served: dict[str, Any]) -> None:
+    served["body"] = b"\xef\xbb\xbf<html>nope</html>"
+
+    assert dl.download_file(source(), s3, "bronze").action == "failed"  # type: ignore[arg-type]
+
+
+def test_zip_must_actually_be_a_zip(s3: FakeS3, served: dict[str, Any]) -> None:
+    archive = SourceFile(
+        "dsas", "ca", 2022, "02", None, "zip", "https://x/arquivos/shpc/dsas/ca/ca-2022-02.zip"
+    )
+    served["body"] = b"Regiao;Estado\nSE;SP\n"
+
+    assert dl.download_file(archive, s3, "bronze").action == "failed"  # type: ignore[arg-type]
+
+
+def test_a_real_csv_still_passes(s3: FakeS3, served: dict[str, Any]) -> None:
+    assert dl.download_file(source(), s3, "bronze").action == "downloaded"  # type: ignore[arg-type]

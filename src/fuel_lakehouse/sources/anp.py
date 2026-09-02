@@ -1,16 +1,10 @@
-"""Discovery of the files ANP publishes, and the manifest that records them.
+"""Finding the files ANP publishes.
 
-The published filenames do not follow one pattern. In 2026 alone there are four
-shapes, one of them carrying a typo from the publisher
-(``02-cados-abertos-preco-gasolina-etanol.csv``), April is absent, one semester
-of 2022 is a ZIP among the CSVs, and the LPG series uses three naming schemes.
-Building URLs from a template would drop files without any error.
-
-So each attribute is pulled out on its own rather than matching a filename as a
-whole: the year comes from the path, the period from the leading or trailing
-number, the product group from whichever known token appears. A name nobody
-anticipated still yields most of its attributes, and whatever is left over is
-recorded as ``unknown`` for a human to look at instead of vanishing.
+There is no single filename pattern. 2026 alone has four shapes, one with a typo
+from the publisher (02-cados-abertos-preco-...), April is missing, and one 2022
+semester is a zip. So attributes are pulled out one by one instead of matching
+the whole name, and anything unrecognized is kept as unknown rather than
+dropped.
 """
 
 from __future__ import annotations
@@ -56,12 +50,7 @@ class SourceFile:
 
     @property
     def sort_key(self) -> tuple[str, str, int, str, str, str]:
-        """Total order that tolerates missing attributes.
-
-        Comparing the fields directly breaks as soon as one file yields no year
-        and another does, which is exactly the case the unknown status exists
-        for. Absent values sort first rather than raising.
-        """
+        """Ordering that survives a file with no year. Absent values sort first."""
         return (
             self.series,
             self.subseries or "",
@@ -77,7 +66,7 @@ class SourceFile:
 
     @property
     def raw_key(self) -> str:
-        """Object key under the raw prefix, keeping the published filename."""
+        """Key under the raw prefix. Keeps the published filename as is."""
         folder = self.subseries or "all"
         year = self.year if self.year is not None else "undated"
         return f"{self.series}/{folder}/{year}/{self.filename}"
@@ -135,13 +124,13 @@ def sort_files(files: list[SourceFile]) -> list[SourceFile]:
 
 
 def discover(index_html: str) -> list[SourceFile]:
-    """Every data file linked from the index page, deduplicated and ordered."""
+    """Every data file linked from the index page."""
     urls = {match.group(1) for match in _FILE_LINK.finditer(index_html)}
     return sort_files([classify(url) for url in urls])
 
 
 def write_manifest(files: list[SourceFile], path: Path) -> None:
-    """Stable ordering and indentation, so a change shows up as a readable diff."""
+    """Stable ordering, so a change shows up as a readable diff."""
     payload = {
         "source": INDEX_URL,
         "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
@@ -159,11 +148,10 @@ def read_manifest(path: Path) -> list[SourceFile]:
 
 
 def merge_manifest(known: list[SourceFile], found: list[SourceFile]) -> list[SourceFile]:
-    """Combine a previous manifest with a fresh discovery.
+    """Previous manifest plus a fresh discovery.
 
-    A file that disappeared upstream keeps its entry and is flagged. Deleting it
-    would quietly rewrite history: the bytes were downloaded and are still valid,
-    and the fact that ANP withdrew the file is itself worth recording.
+    A file that vanished upstream keeps its entry, flagged. Dropping it would
+    hide that ANP withdrew something.
     """
     found_by_url = {f.url: f for f in found}
     merged = list(found)

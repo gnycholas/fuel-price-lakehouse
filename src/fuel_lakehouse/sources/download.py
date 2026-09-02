@@ -1,9 +1,4 @@
-"""Fetching published files into the raw prefix, once.
-
-Every stored object gets a sidecar recording where it came from and the digest
-of what arrived. A rerun compares digests rather than checking whether the key
-exists, so a truncated or altered object is replaced instead of trusted.
-"""
+"""Fetching published files into the raw prefix."""
 
 from __future__ import annotations
 
@@ -98,17 +93,41 @@ def _read_meta(s3: S3Client, bucket: str, key: str) -> dict[str, object] | None:
 
 
 def _stored_digest(s3: S3Client, bucket: str, key: str) -> str | None:
-    """Digest of what is actually stored, not what a sidecar claims.
+    """Digest of what is stored, not what the sidecar claims.
 
-    This re-reads the object, which costs a local round trip. Against a remote
-    store it would be worth trading for size plus ETag; here correctness is
-    cheap enough to prefer.
+    Re-reads the object. Against a remote store, size plus ETag would be the
+    cheaper trade.
     """
     try:
         body = s3.get_object(Bucket=bucket, Key=key)["Body"].read()
     except ClientError:
         return None
     return hashlib.sha256(body).hexdigest()
+
+
+class NotTheExpectedContentError(RuntimeError):
+    """Server answered, but not with the file."""
+
+
+def _reject_if_not_the_file(source: SourceFile, payload: bytes) -> None:
+    """Catch an error page before it gets stored as data.
+
+    A valid URL intermittently answers 200 with HTML. Status code and content
+    type both look fine, so the payload has to be checked.
+    """
+    head = payload.lstrip(b"\xef\xbb\xbf").lstrip()[:512]
+
+    if head[:1] == b"<" or b"<html" in head.lower():
+        raise NotTheExpectedContentError("server returned an HTML page")
+
+    if source.content_type == "zip":
+        if payload[:2] != b"PK":
+            raise NotTheExpectedContentError("not a zip archive")
+        return
+
+    first_line = head.split(b"\n", 1)[0]
+    if b";" not in first_line:
+        raise NotTheExpectedContentError(f"no delimiter in the first line: {first_line[:80]!r}")
 
 
 def _fetch(url: str) -> bytes:
@@ -142,6 +161,7 @@ def download_file(
 
     try:
         payload = _fetch(source.url)
+        _reject_if_not_the_file(source, payload)
     except RuntimeError as exc:
         log.warning("failed to download %s: %s", source.url, exc)
         return DownloadResult(source, "failed", error=str(exc))
@@ -177,9 +197,5 @@ def download_files(
     *,
     force: bool = False,
 ) -> DownloadReport:
-    """Download what is missing or stale.
-
-    One failure does not abandon the batch: everything that can be fetched is
-    fetched, and the report says what was left behind.
-    """
+    """Download what is missing or stale. One failure does not abandon the batch."""
     return DownloadReport([download_file(s, s3, bucket, force=force) for s in sources])

@@ -1,7 +1,7 @@
-"""Discovery over a trimmed copy of the real index page.
+"""Discovery, over a trimmed copy of the real index page.
 
-The fixture keeps the anomalies verbatim, because those are the whole reason
-discovery exists instead of a URL template.
+The anomalies in the fixture are verbatim. They are the reason this is
+discovery and not a URL template.
 """
 
 from __future__ import annotations
@@ -35,7 +35,7 @@ def find(files: list[SourceFile], fragment: str) -> SourceFile:
     return next(f for f in files if fragment in f.url)
 
 
-def test_all_four_2026_filename_shapes_are_discovered(files: list[SourceFile]) -> None:
+def test_all_2026_filename_shapes_are_found(files: list[SourceFile]) -> None:
     gasolina_2026 = sorted(
         f.period
         for f in files
@@ -57,7 +57,7 @@ def test_publisher_typo_is_not_normalized(files: list[SourceFile]) -> None:
     assert find(files, "cados").filename == "02-cados-abertos-preco-gasolina-etanol.csv"
 
 
-def test_month_embedded_in_the_middle_is_read(files: list[SourceFile]) -> None:
+def test_month_in_the_middle_is_read(files: list[SourceFile]) -> None:
     june = find(files, "06-dados-abertos-precos-2026-06-gasolina-etanol")
     assert (june.year, june.period) == (2026, "06")
 
@@ -84,7 +84,7 @@ def test_three_lpg_naming_schemes_all_resolve(files: list[SourceFile]) -> None:
     assert find(files, "precos-semestrais-glp2021").year == 2021
 
 
-def test_rolling_feed_is_kept_apart_from_the_historical_series(
+def test_rolling_feed_is_kept_apart(
     files: list[SourceFile],
 ) -> None:
     rolling = find(files, "ultimas-4-semanas-glp")
@@ -92,7 +92,7 @@ def test_rolling_feed_is_kept_apart_from_the_historical_series(
     assert rolling.year is None
 
 
-def test_unrecognized_shape_is_flagged_rather_than_dropped() -> None:
+def test_unrecognized_shape_is_flagged() -> None:
     surprise = classify("https://x/arquivos/shpc/dsan/2027/brand-new-shape.csv")
     assert surprise.status == STATUS_UNKNOWN
     assert surprise.url.endswith("brand-new-shape.csv")
@@ -136,7 +136,6 @@ def test_reappearing_file_loses_the_missing_flag(files: list[SourceFile]) -> Non
 
 
 def test_sorting_tolerates_a_file_with_no_year() -> None:
-    """A shape that yields no year must not break ordering for the rest."""
     dated = classify("https://x/arquivos/shpc/dsan/2025/precos-glp-03.csv")
     undated = classify("https://x/arquivos/shpc/dsan/brand-new-shape.csv")
 

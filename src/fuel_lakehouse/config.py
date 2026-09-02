@@ -1,8 +1,4 @@
-"""Runtime configuration, read from the environment with development defaults.
-
-Nothing here is hardcoded to a machine: the same code runs against local MinIO
-and against a real object store by changing environment variables only.
-"""
+"""Configuration from the environment, with defaults for local development."""
 
 from __future__ import annotations
 
@@ -13,7 +9,7 @@ from functools import lru_cache
 
 @dataclass(frozen=True)
 class StorageConfig:
-    """Object store connection and the three lakehouse buckets."""
+    """Object store connection and the lakehouse buckets."""
 
     endpoint: str
     access_key: str
@@ -24,7 +20,7 @@ class StorageConfig:
 
     @property
     def bronze_raw(self) -> str:
-        """Prefix holding downloaded source files, byte for byte as published."""
+        """Where downloaded files land, byte for byte as published."""
         return f"s3a://{self.bucket_bronze}/_raw"
 
     def table(self, layer: str, name: str) -> str:

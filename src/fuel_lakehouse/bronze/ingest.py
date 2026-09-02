@@ -1,14 +1,7 @@
-"""Bronze: load published files exactly as they arrived.
+"""Bronze layer: the published files, loaded as they came.
 
-Nothing is converted and no row is refused here. Every column stays a string,
-because a type at this stage turns an unparseable value into a null and the
-original is gone before anyone can decide what to do about it. The raw bytes
-also stay in the raw prefix, so a bad transformation downstream is always
-recoverable without going back to the publisher.
-
-The one thing Bronze does check is shape. A file missing a contracted column is
-not drift to absorb, it is a different file, and mapping it anyway would fill a
-column with values that belong to another one.
+Everything stays a string here. Typing at this point silently turns a bad value
+into a null and the original is gone.
 """
 
 from __future__ import annotations
@@ -56,35 +49,29 @@ _NON_ALNUM = re.compile(r"[^a-z0-9]+")
 
 
 class UnexpectedHeaderError(RuntimeError):
-    """A file whose columns are not the ones under contract."""
+    """Columns are not the ones we contracted for."""
 
 
 def normalize_column(name: str) -> str:
-    """Published headers into snake_case.
-
-    The files are UTF-8 with a byte order mark, which arrives attached to the
-    first column name and silently makes it not match anything.
-    """
+    """Header to snake_case. The BOM rides along on the first column name."""
     without_bom = name.replace("﻿", "")
     unaccented = unicodedata.normalize("NFKD", without_bom).encode("ascii", "ignore").decode()
     return _NON_ALNUM.sub("_", unaccented.strip().lower()).strip("_")
 
 
 def header_signature(columns: list[str]) -> str:
-    """Short digest of the header, so a change upstream is visible in the data."""
+    """Digest of the header, so upstream shape changes show up in the table."""
     return hashlib.sha256("|".join(columns).encode()).hexdigest()[:12]
 
 
 def read_raw(spark: SparkSession, path: str) -> DataFrame:
-    """One published file, every column a string, column names normalized."""
     frame = (
         spark.read.option("header", "true")
         .option("sep", ";")
         .option("quote", '"')
         .option("encoding", "UTF-8")
-        # 966 rows of the 2004 file carry a semicolon inside a quoted field.
-        # Splitting on the delimiter without honouring quotes shifts every
-        # column after it, which reads as a postcode in the product column.
+        # 966 rows of the 2004 file have a semicolon inside a quoted field.
+        # Ignore the quoting and every column after it shifts.
         .option("multiLine", "false")
         .csv(path)
     )
@@ -106,11 +93,9 @@ def add_lineage(
     run_id: str,
     ingested_at: datetime | None = None,
 ) -> DataFrame:
-    """Stamp where each row came from, and select the contracted columns.
+    """Select the contracted columns and stamp where the rows came from.
 
-    Columns beyond the contract are dropped from the table but never lost: the
-    published file is kept verbatim in the raw prefix, and the header signature
-    below changes the moment the shape does.
+    Anything beyond the contract is dropped here but still sits in _raw.
     """
     signature = header_signature(list(frame.columns))
     stamped = ingested_at or datetime.now(UTC)
@@ -127,11 +112,7 @@ def add_lineage(
 
 
 def write_bronze(frame: DataFrame, table_path: str, source_file: str) -> None:
-    """Replace this file's rows, leaving every other file untouched.
-
-    Appending would duplicate on reload and overwriting would destroy the rest
-    of the table, so the write is scoped to the one file being ingested.
-    """
+    """Replace only this file's rows. Append duplicates, overwrite wipes the rest."""
     escaped = source_file.replace("'", "''")
     (
         frame.write.format("delta")
