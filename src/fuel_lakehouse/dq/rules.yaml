@@ -51,7 +51,11 @@ rules:
     type: ratio
     numerator: rejected
     denominator: source
-    max: 0.01          # TO CALIBRATE
+    # Observed 0 across 5,036,072 rows spanning 2004, 2012, 2021 and 2025.
+    # 0.1% is 5,000 rows: headroom for a year not loaded yet, tight enough that
+    # a real regression trips it. The 1% first guessed would have waved 50,000
+    # bad rows through.
+    max: 0.001
     severity: critical
 
   # Informative by design. The purchase price column is 100% empty from 2025

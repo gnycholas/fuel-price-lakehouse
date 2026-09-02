@@ -61,12 +61,12 @@ is a set of traps that produce wrong numbers without producing errors.
 
 ### The purchase price column stops being filled
 
-<!-- COVERAGE_CHART -->
+![Purchase price coverage by year](docs/img/purchase-price-coverage.svg)
 
-The column is declared for the whole series. It is filled for about 69% of rows
-in 2004 and for none at all from 2025 on. Any margin metric built on top of it
-quietly stops meaning anything, and nothing in the pipeline notices unless
-somebody makes it notice.
+The column is declared for the whole series and stops being filled partway
+through: 63% of rows carry a purchase price in 2004, 41% in 2012, and none at
+all in 2021 or 2025. Any margin metric built on top of it quietly stops meaning
+anything, and nothing in the pipeline notices unless somebody makes it notice.
 
 So `gold.margin_by_state_week` always carries `coverage_ratio` and `is_reliable`
 next to the number, and a week with no purchase price produces no row rather
@@ -119,6 +119,38 @@ match. The charset is detected at download time and travels with the rows as
 the delimiter without honouring quotes and every column after it shifts, which
 reads as a postcode sitting in the product column. That is exactly the count of
 rows a naive split gets wrong, and none of them raise anything.
+
+## What the numbers looked like
+
+Over the window loaded here, 5,036,072 rows from 2004, 2012, 2021 and 2025:
+
+```
+5036072 in bronze, 5036072 accepted, 0 rejected
+[ok] natural_key_unique:     0 duplicated
+[ok] one_unit_per_product:   none
+[ok] layer_reconciliation:   5036072 accounted, 5036072 in source
+[ok] rejection_rate:         0.000000, expected [0, 0.001]
+[--] purchase_price_coverage: 0.316287
+```
+
+It did not start there. The first run against the full window rejected 53,038
+rows, 1.05% against a threshold guessed at 1%, so the gate failed. None of those
+rows were bad data. Two things were wrong with the contract:
+
+- `DIESEL S50` was missing from the product list. Sampling only 2004 and 2025
+  skipped the era when it existed, which cost 44,495 rows.
+- `R$ / m³` was arriving as `R$ / m?`, because one file in the series is latin-1
+  and was being read as UTF-8.
+
+Thresholds are set from what was measured rather than picked in advance, and the
+numbers behind each one sit next to it in the code. Rejection rate allows 0.1%
+against an observed 0. A weekly cell is flagged as thin below 10 observations,
+which is the bottom decile of 30,822 cells whose median is 60. A margin counts
+as reliable above 50% coverage, near the middle of the observed spread.
+
+Picking those in advance is how a gate ends up rejecting good data for a year
+and the conclusion becomes "the publisher ships rubbish" instead of "the
+contract is incomplete".
 
 ## Layout
 

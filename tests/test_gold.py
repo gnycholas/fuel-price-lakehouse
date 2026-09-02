@@ -90,7 +90,7 @@ def test_thin_weeks_are_flagged(spark: SparkSession) -> None:
 
 
 def test_a_well_sampled_week_is_not_flagged(spark: SparkSession) -> None:
-    rows = [{"reseller_cnpj": str(i), "sale_price": Decimal("5.00")} for i in range(8)]
+    rows = [{"reseller_cnpj": str(i), "sale_price": Decimal("5.00")} for i in range(12)]
     assert not build(silver(spark, *rows)).first()["is_low_sample"]
 
 

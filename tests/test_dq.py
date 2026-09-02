@@ -113,7 +113,14 @@ def test_rejection_rate_over_the_limit_fails(spark: SparkSession) -> None:
 
 def test_rejection_rate_under_the_limit_passes(spark: SparkSession) -> None:
     frame = accepted(spark, ONE_GOOD_ROW)
-    assert result("rejection_rate", frame, source=1000, rejected=5).passed
+    assert result("rejection_rate", frame, source=1_000_000, rejected=500).passed
+
+
+def test_the_rate_that_first_broke_the_gate_still_breaks_it(spark: SparkSession) -> None:
+    """The first full run rejected 53,038 of 5,036,072 rows, all of them from
+    gaps in the contract rather than bad data."""
+    frame = accepted(spark, ONE_GOOD_ROW)
+    assert not result("rejection_rate", frame, source=5_036_072, rejected=53_038).passed
 
 
 def test_reconciliation_that_does_not_add_up_fails(spark: SparkSession) -> None:

@@ -12,8 +12,10 @@ from pyspark.sql import functions as F
 
 GRAIN = ("state", "product", "unit", "collection_week")
 
-# TO CALIBRATE against the distribution across the series.
-LOW_SAMPLE_BELOW = 5
+# The bottom decile. Measured over 30,822 weekly cells: the median has 60
+# observations, p10 sits at 10, p1 at 1. Below ten stations a weekly average is
+# a handful of forecourts rather than a market.
+LOW_SAMPLE_BELOW = 10
 
 # Exact percentiles do not pay for themselves at this volume.
 PERCENTILE_ACCURACY = 1000
