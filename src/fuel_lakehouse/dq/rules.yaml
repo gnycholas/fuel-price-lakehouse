@@ -1,0 +1,65 @@
+# Rules are declared here, not in Python, so adding one does not mean touching
+# the engine. Thresholds marked TO CALIBRATE are guesses until they have been
+# run against the full series; a made-up threshold rejects good data and passes
+# bad data with equal confidence.
+
+rules:
+  - name: sale_price_positive
+    type: range
+    frame: accepted
+    column: sale_price
+    min: 0.01
+    severity: critical
+
+  - name: sale_price_never_null
+    type: not_null
+    frame: accepted
+    column: sale_price
+    severity: critical
+
+  - name: collection_date_never_null
+    type: not_null
+    frame: accepted
+    column: collection_date
+    severity: critical
+
+  - name: state_in_domain
+    type: domain
+    frame: accepted
+    column: state
+    values: [AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR,
+             PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO]
+    severity: critical
+
+  - name: natural_key_unique
+    type: unique_key
+    frame: accepted
+    columns: [reseller_cnpj, product, collection_date]
+    severity: critical
+
+  - name: one_unit_per_product
+    type: custom
+    check: one_unit_per_product
+    frame: accepted
+    severity: critical
+
+  - name: layer_reconciliation
+    type: reconciliation
+    severity: critical
+
+  - name: rejection_rate
+    type: ratio
+    numerator: rejected
+    denominator: source
+    max: 0.01          # TO CALIBRATE
+    severity: critical
+
+  # Informative by design. The purchase price column is 100% empty from 2025
+  # on, which is the normal state of this series and not a defect. Making it
+  # critical would turn the gate into an alarm everyone ignores.
+  - name: purchase_price_coverage
+    type: ratio
+    numerator: with_purchase_price
+    denominator: accepted
+    min: 0.0
+    severity: warning
