@@ -35,6 +35,18 @@ test: $(VENV) ## Run the test suite
 
 check: lint typecheck test ## Everything CI runs
 
+CLI := $(PY) -m fuel_lakehouse.cli
+
+pipeline: $(VENV) ## Run the whole thing: discover, download, bronze, silver, gold
+	$(CLI) discover
+	$(CLI) download
+	$(CLI) bronze
+	$(CLI) silver
+	$(CLI) gold
+
+chart: $(VENV) ## Regenerate the coverage chart in docs/img
+	$(PY) scripts/coverage_chart.py
+
 up: ## Start MinIO and create the buckets
 	docker compose up -d
 
@@ -45,4 +57,4 @@ clean: ## Remove build and cache artifacts
 	rm -rf $(VENV) .mypy_cache .pytest_cache .ruff_cache spark-warehouse derby.log metastore_db
 	find . -name __pycache__ -type d -prune -exec rm -rf {} +
 
-.PHONY: help install lint format typecheck test check up down clean
+.PHONY: help install lint format typecheck test check pipeline chart up down clean
