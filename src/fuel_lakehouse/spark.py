@@ -22,6 +22,10 @@ SUPPORTED_JAVA = (17, 21)
 # 200 is a cluster default; on one machine it is mostly scheduling overhead.
 LOCAL_SHUFFLE_PARTITIONS = "8"
 
+# The 1 GB default driver runs out on a grouped aggregate over a few million
+# rows, which is well within what this pipeline handles on a laptop.
+DRIVER_MEMORY = "4g"
+
 
 def _java_binary() -> str:
     """The java Spark will launch. JAVA_HOME wins over PATH."""
@@ -72,6 +76,7 @@ def build_spark(app_name: str, *, local_storage: bool = False) -> SparkSession:
             "org.apache.spark.sql.delta.catalog.DeltaCatalog",
         )
         .config("spark.sql.shuffle.partitions", LOCAL_SHUFFLE_PARTITIONS)
+        .config("spark.driver.memory", DRIVER_MEMORY)
         .config("spark.ui.showConsoleProgress", "false")
     )
 

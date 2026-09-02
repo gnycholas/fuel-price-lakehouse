@@ -12,9 +12,17 @@ from typing import TYPE_CHECKING
 
 import requests
 from botocore.exceptions import ClientError
+from pyspark.sql import DataFrame, SparkSession
+from pyspark.sql import functions as F
 
 from fuel_lakehouse.bronze.ingest import ingest_file
-from fuel_lakehouse.config import load_config
+from fuel_lakehouse.config import Config, load_config
+from fuel_lakehouse.dq.engine import Context, gate, run
+from fuel_lakehouse.gold.coverage import coverage, margin
+from fuel_lakehouse.gold.price import build as price_gold
+from fuel_lakehouse.silver.build import merge, prepare
+from fuel_lakehouse.silver.contract import evaluate
+from fuel_lakehouse.silver.quarantine import reconcile, split
 from fuel_lakehouse.sources.anp import (
     INDEX_URL,
     STATUS_MISSING_UPSTREAM,
@@ -145,6 +153,90 @@ def cmd_bronze(args: argparse.Namespace) -> int:
     return 0
 
 
+def _bronze_window(spark: SparkSession, cfg: Config, args: argparse.Namespace) -> DataFrame:
+    frame = spark.read.format("delta").load(cfg.storage.table("bronze", "price_observation_raw"))
+    if args.year:
+        frame = frame.filter(F.col("_source_year").isin(*args.year))
+    if args.series:
+        frame = frame.filter(F.col("_source_series") == args.series)
+    return frame
+
+
+def cmd_silver(args: argparse.Namespace) -> int:
+    cfg = load_config()
+    spark = build_spark("silver")
+    try:
+        bronze = _bronze_window(spark, cfg, args).cache()
+        source_count = bronze.count()
+        if not source_count:
+            log.error("no bronze rows match the given filters")
+            return 1
+
+        result = split(evaluate(bronze))
+        result.accepted.cache()
+        result.rejected.cache()
+        counts = reconcile(source_count, result)
+        log.info(
+            "%d in bronze, %d accepted, %d rejected",
+            counts.source,
+            counts.accepted,
+            counts.rejected,
+        )
+
+        with_purchase = result.accepted.filter(F.col("purchase_price").isNotNull()).count()
+        results = run(
+            Context(
+                frames={"accepted": result.accepted},
+                metrics={
+                    "source": counts.source,
+                    "accepted": counts.accepted,
+                    "rejected": counts.rejected,
+                    "with_purchase_price": with_purchase,
+                },
+            )
+        )
+        for outcome in results:
+            log.info("%s", outcome)
+
+        if counts.rejected:
+            (
+                result.rejected.write.format("delta")
+                .mode("append")
+                .save(cfg.storage.table("silver", "price_observation_rejected"))
+            )
+
+        # Gate before the merge: a breach must not reach the table that gold
+        # reads from.
+        gate(results)
+        merge(spark, prepare(result.accepted), cfg.storage.table("silver", "price_observation"))
+        log.info("silver updated")
+    finally:
+        spark.stop()
+    return 0
+
+
+def cmd_gold(args: argparse.Namespace) -> int:
+    cfg = load_config()
+    spark = build_spark("gold")
+    try:
+        silver = spark.read.format("delta").load(cfg.storage.table("silver", "price_observation"))
+        silver.cache()
+
+        tables = {
+            "price_by_state_product_week": price_gold(silver),
+            "purchase_price_coverage": coverage(silver),
+            "margin_by_state_week": margin(silver),
+        }
+        for name, frame in tables.items():
+            frame.write.format("delta").mode("overwrite").option("overwriteSchema", "true").save(
+                cfg.storage.table("gold", name)
+            )
+            log.info("%s: %d rows", name, frame.count())
+    finally:
+        spark.stop()
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="fuel-lakehouse")
     parser.add_argument("--manifest", type=Path, default=MANIFEST)
@@ -163,13 +255,25 @@ def build_parser() -> argparse.ArgumentParser:
     bronze.add_argument("--group", help="gasolina-etanol, diesel-gnv or glp")
     bronze.add_argument("--series", help="dsan, dsas or qus")
 
+    silver = sub.add_parser("silver", help="apply the contract and merge into silver")
+    silver.add_argument("--year", type=int, nargs="*", help="restrict to these source years")
+    silver.add_argument("--series", help="dsan or dsas")
+
+    sub.add_parser("gold", help="rebuild the gold tables")
+
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
     args = build_parser().parse_args(argv)
-    handlers = {"discover": cmd_discover, "download": cmd_download, "bronze": cmd_bronze}
+    handlers = {
+        "discover": cmd_discover,
+        "download": cmd_download,
+        "bronze": cmd_bronze,
+        "silver": cmd_silver,
+        "gold": cmd_gold,
+    }
     return handlers[args.command](args)
 
 
